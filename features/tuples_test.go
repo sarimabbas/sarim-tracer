@@ -1,7 +1,6 @@
-package main
+package features
 
 import (
-	"fmt"
 	"math"
 	"testing"
 )
@@ -188,32 +187,12 @@ func TestVectorCrossProduct(t *testing.T) {
 	}
 }
 
-type projectile struct {
-	position Tuple `point`
-	velocity Tuple `vector`
-}
-
-type environment struct {
-	gravity Tuple `vector`
-	wind    Tuple `vector`
-}
-
-func tick(env environment, proj projectile) projectile {
-	position := proj.position.Add(proj.velocity)
-	velocity := proj.velocity.Add(env.gravity).Add(env.wind)
-	return projectile{position, velocity}
-}
-
-func TestProjectileEnvironment(t *testing.T) {
-	// projectile starts one unit above the origin
-	// velocity is normalized to 1 unit/tick
-	p := projectile{PointNew(0, 1, 0), VectorNew(1, 1, 0).Normalize()}
-
-	// gravity -0.1 unit/tick, and wind is -0.01 unit/tick
-	e := environment{VectorNew(0, -0.1, 0), VectorNew(-0.01, 0, 0)}
-
-	for i := 0; i < 50; i++ {
-		p = tick(e, p)
-		fmt.Println(p.position)
+func TestTupleHadamardProduct(t *testing.T) {
+	c1 := ColorNew(1, 0.2, 0.4)
+	c2 := ColorNew(0.9, 1.0, 0.1)
+	got := c1.HadamardProduct(c2)
+	want := ColorNew(0.9, 0.2, 0.04)
+	if !got.Equal(want) {
+		t.Errorf("got %v want %v", got, want)
 	}
 }

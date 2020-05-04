@@ -1,4 +1,4 @@
-package main
+package features
 
 import (
 	"math"
@@ -212,4 +212,52 @@ func VectorCrossProduct(a Tuple, b Tuple) Tuple {
 // three-dimensional version anyway.”
 func (t Tuple) CrossProduct(u Tuple) Tuple {
 	return VectorCrossProduct(t, u)
+}
+
+// TupleHadamardProduct : take the component-wise product
+func TupleHadamardProduct(a Tuple, b Tuple) Tuple {
+	return Tuple{a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w}
+}
+
+// HadamardProduct : take the component-wise product
+//
+// c1 = (1, 0.2, 0.4); c2 = (0.9, 0.2, 0.04)
+//
+// res = (0.9, 0.2, 0.04)
+//
+// “Consider this test again. It says that if you were to view that yellow-green
+// surface (c2) under a reddish-purple light (c1), the result color will seem
+// red (because the result's red component, 0.9, is largest).”
+func (t Tuple) HadamardProduct(u Tuple) Tuple {
+	return TupleHadamardProduct(t, u)
+}
+
+// ColorNew : create color tuple
+func ColorNew(r, g, b float64) Tuple {
+	var c Tuple
+	c.x = r
+	c.y = g
+	c.z = b
+	c.w = 1.0
+	return c
+}
+
+// FloatClamp : clamp a float between low and high
+func FloatClamp(f, low, high float64) float64 {
+	if f < low {
+		return low
+	}
+	if f > high {
+		return high
+	}
+	return f
+}
+
+// Clamp : clamp tuple components
+func (t Tuple) Clamp(low, high float64) Tuple {
+	t.x = FloatClamp(t.x, low, high)
+	t.y = FloatClamp(t.y, low, high)
+	t.z = FloatClamp(t.z, low, high)
+	t.w = FloatClamp(t.w, low, high)
+	return t
 }
