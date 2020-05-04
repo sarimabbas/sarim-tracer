@@ -4,7 +4,8 @@ import (
 	"math"
 )
 
-var epsilon float64 = 0.00001
+// EPSILON used for floating point comparison
+var EPSILON float64 = 0.00001
 
 // Tuple type
 type Tuple struct {
@@ -41,7 +42,7 @@ func (t Tuple) isPoint() bool {
 
 // FloatEqual : compare two float64 as equal
 func FloatEqual(a, b float64) bool {
-	if math.Abs(a-b) < epsilon {
+	if math.Abs(a-b) < EPSILON {
 		return true
 	}
 	return false
