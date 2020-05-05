@@ -1,6 +1,7 @@
 package features
 
 import (
+	"gonum.org/v1/gonum/mat"
 	"math"
 )
 
@@ -10,6 +11,16 @@ var EPSILON float64 = 0.00001
 // Tuple type
 type Tuple struct {
 	x, y, z, w float64
+}
+
+// TupleNew : initialize and create a new Tuple
+func TupleNew(x, y, z, w float64) Tuple {
+	var t Tuple
+	t.x = x
+	t.y = y
+	t.z = z
+	t.w = w
+	return t
 }
 
 // PointNew : initialize and create a new Tuple
@@ -261,4 +272,19 @@ func (t Tuple) Clamp(low, high float64) Tuple {
 	t.z = FloatClamp(t.z, low, high)
 	t.w = FloatClamp(t.w, low, high)
 	return t
+}
+
+// NewVecDenseFromTuple : convert Tuple to VecDense
+func NewVecDenseFromTuple(t Tuple) *mat.VecDense {
+	return mat.NewVecDense(4, []float64{t.x, t.y, t.z, t.w})
+}
+
+// NewTupleFromVecDense : convert VecDense to Tuple
+func NewTupleFromVecDense(m *mat.VecDense) Tuple {
+	return Tuple{
+		m.AtVec(0),
+		m.AtVec(1),
+		m.AtVec(2),
+		m.AtVec(3),
+	}
 }
