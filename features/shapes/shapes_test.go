@@ -25,19 +25,19 @@ func TestSphereIntersect(t *testing.T) {
 
 func TestSphereTransform(t *testing.T) {
 	s := SphereNew()
-	if !mat.EqualApprox(s.transform, transformations.IdentityNew(4), tuples.EPSILON) {
-		t.Errorf("got %v want %v", s.transform, transformations.IdentityNew(4))
+	if !mat.EqualApprox(s.Transform, transformations.IdentityNew(4), tuples.EPSILON) {
+		t.Errorf("got %v want %v", s.Transform, transformations.IdentityNew(4))
 	}
-	s.transform = transformations.TranslationNew(2, 3, 4)
-	if !mat.EqualApprox(s.transform, transformations.TranslationNew(2, 3, 4), tuples.EPSILON) {
-		t.Errorf("got %v want %v", s.transform, transformations.TranslationNew(2, 3, 4))
+	s.Transform = transformations.TranslationNew(2, 3, 4)
+	if !mat.EqualApprox(s.Transform, transformations.TranslationNew(2, 3, 4), tuples.EPSILON) {
+		t.Errorf("got %v want %v", s.Transform, transformations.TranslationNew(2, 3, 4))
 	}
 }
 
 func TestScaledSphereIntersect(t *testing.T) {
 	r := rays.RayNew(tuples.PointNew(0, 0, -5), tuples.VectorNew(0, 0, 1))
 	s := SphereNew()
-	s.transform = transformations.ScalingNew(2, 2, 2)
+	s.Transform = transformations.ScalingNew(2, 2, 2)
 	intersections := s.Intersect(r)
 	if len(intersections) != 2 {
 		t.Errorf("got %d want %d", len(intersections), 2)
@@ -53,7 +53,7 @@ func TestScaledSphereIntersect(t *testing.T) {
 func TestTranslatedSphereIntersect(t *testing.T) {
 	r := rays.RayNew(tuples.PointNew(0, 0, -5), tuples.VectorNew(0, 0, 1))
 	s := SphereNew()
-	s.transform = transformations.TranslationNew(5, 0, 0)
+	s.Transform = transformations.TranslationNew(5, 0, 0)
 	intersections := s.Intersect(r)
 	if len(intersections) != 0 {
 		t.Errorf("got %d want %d", len(intersections), 0)

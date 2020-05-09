@@ -17,7 +17,7 @@ type Shape interface {
 
 // Sphere : a Shape
 type Sphere struct {
-	transform *mat.Dense
+	Transform *mat.Dense
 }
 
 // SphereNew : sphere constructor
@@ -34,7 +34,7 @@ func SphereNew(transform ...*mat.Dense) Sphere {
 func (s Sphere) Intersect(r rays.Ray) []Intersection {
 	// inverse transform the ray
 	transform := transformations.IdentityNew(4)
-	transform.Inverse(s.transform)
+	transform.Inverse(s.Transform)
 	r = r.Transform(transform)
 	// assume unit sphere at global origin
 	// create ray from sphere center to ray origin
