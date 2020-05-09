@@ -1,4 +1,4 @@
-package features
+package tuples
 
 import (
 	"math"
@@ -7,17 +7,17 @@ import (
 
 func TestTuple(t *testing.T) {
 	got := Tuple{4.3, -4.2, 3.1, 1.0}
-	if got.x != 4.3 {
-		t.Errorf("got %f want %f", got.x, 4.3)
+	if got.X != 4.3 {
+		t.Errorf("got %f want %f", got.X, 4.3)
 	}
-	if got.y != -4.2 {
-		t.Errorf("got %f want %f", got.y, -4.2)
+	if got.Y != -4.2 {
+		t.Errorf("got %f want %f", got.Y, -4.2)
 	}
-	if got.z != 3.1 {
-		t.Errorf("got %f want %f", got.z, 3.1)
+	if got.Z != 3.1 {
+		t.Errorf("got %f want %f", got.Z, 3.1)
 	}
-	if got.w != 1.0 {
-		t.Errorf("got %f want %f", got.w, 1.0)
+	if got.W != 1.0 {
+		t.Errorf("got %f want %f", got.W, 1.0)
 	}
 }
 

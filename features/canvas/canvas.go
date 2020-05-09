@@ -1,28 +1,29 @@
-package features
+package canvas
 
 import (
 	"fmt"
 	"os"
+	"sarim-tracer/features/tuples"
 )
 
 // Canvas : image canvas to save to PPM
 type Canvas struct {
 	width, height int
-	pixels        [][]Tuple
+	pixels        [][]tuples.Tuple
 }
 
-// CanvasNew : create new canvas
+// New : create new canvas
 func CanvasNew(width, height int) Canvas {
 	// create pixels
-	pixels := make([][]Tuple, width)
+	pixels := make([][]tuples.Tuple, width)
 	for i := range pixels {
-		pixels[i] = make([]Tuple, height)
+		pixels[i] = make([]tuples.Tuple, height)
 	}
 
 	// init pixels
 	for i := 0; i < width; i++ {
 		for j := 0; j < height; j++ {
-			pixels[i][j] = ColorNew(0, 0, 0)
+			pixels[i][j] = tuples.ColorNew(0, 0, 0)
 		}
 	}
 	canvas := Canvas{width: width, height: height, pixels: pixels}
@@ -30,7 +31,7 @@ func CanvasNew(width, height int) Canvas {
 }
 
 // SetPixel : write pixel to canvas
-func (c *Canvas) SetPixel(x, y int, pixel Tuple) {
+func (c *Canvas) SetPixel(x, y int, pixel tuples.Tuple) {
 	// if flipY {
 	// 	y = c.height - 1 - y
 	// }
@@ -39,7 +40,7 @@ func (c *Canvas) SetPixel(x, y int, pixel Tuple) {
 }
 
 // GetPixel : get pixel from canvas
-func (c Canvas) GetPixel(x, y int) Tuple {
+func (c Canvas) GetPixel(x, y int) tuples.Tuple {
 	// return c.pixels[(y*c.width)+x]
 	return c.pixels[x][y]
 }
@@ -76,7 +77,7 @@ func (c Canvas) ToPPM(path string, flipX, flipY bool) {
 			}
 			clamped := c.pixels[modI][modJ].Clamp(0.0, 1.0)
 			clampedString := fmt.Sprintf("%d %d %d ",
-				int(clamped.x*255), int(clamped.y*255), int(clamped.z*255))
+				int(clamped.X*255), int(clamped.Y*255), int(clamped.Z*255))
 			if _, err = f.WriteString(clampedString); err != nil {
 				panic(err)
 			}

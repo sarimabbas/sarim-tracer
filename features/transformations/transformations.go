@@ -1,4 +1,4 @@
-package features
+package transformations
 
 import (
 	"gonum.org/v1/gonum/mat"
@@ -74,13 +74,6 @@ func ShearNew(Xy, Xz, Yx, Yz, Zx, Zy float64) *mat.Dense {
 	m.SetRow(2, []float64{Zx, Zy, 1, 0})
 	m.SetRow(3, []float64{0, 0, 0, 1})
 	return m
-}
-
-// TransformTuple : conveniently transform tuples
-func TransformTuple(t Tuple, transform *mat.Dense) Tuple {
-	v := NewVecDenseFromTuple(t)
-	v.MulVec(transform, v)
-	return NewTupleFromVecDense(v)
 }
 
 // IdentityNew : return identity matrix
